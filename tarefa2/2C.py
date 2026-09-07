@@ -3,7 +3,7 @@
 
 import cv2
 
-img = cv2.imread('foto06.jpg', cv2.IMREAD_GRAYSCALE)
+img = cv2.imread('imgs/foto06.jpg', cv2.IMREAD_GRAYSCALE)
 
 equalizada = cv2.equalizeHist(img)
 

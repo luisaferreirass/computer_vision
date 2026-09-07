@@ -5,7 +5,7 @@
 import cv2
 import numpy as np
 
-img = cv2.imread('foto06.jpg', cv2.IMREAD_GRAYSCALE)
+img = cv2.imread('imgs/foto06.jpg', cv2.IMREAD_GRAYSCALE)
 
 img_f = img.astype(np.float64)
 

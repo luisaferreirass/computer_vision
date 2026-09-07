@@ -8,7 +8,7 @@ import sys
 
 limiar = int(sys.argv[1]) if len(sys.argv) > 1 else 128
 
-img = cv2.imread('foto06.jpg', cv2.IMREAD_GRAYSCALE)
+img = cv2.imread('imgs/foto06.jpg', cv2.IMREAD_GRAYSCALE)
 
 saida = np.zeros_like(img)
 
