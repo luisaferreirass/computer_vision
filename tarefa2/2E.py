@@ -7,14 +7,14 @@ import numpy as np
 img = cv2.imread('imgs/livro.jpg')
 
 pts_origem = np.float32([
-    [142, 80],  
-    [520, 140], 
-    [210, 810],  
-    [640, 690]   
+    [60, 117],   # superior esquerdo
+    [473, 29],   # superior direito
+    [163, 777],  # inferior esquerdo
+    [662, 653]   # inferior direito
 ])
 
 largura = 380
-altura = 480
+altura = 535
 
 pts_destino = np.float32([
     [0, 0],
