@@ -1,0 +1,8 @@
+rotulo,imagem,tipo_ruido,parametro,cx,cy,r
+A,A_sem_ruido_r100.png,sem_ruido,,519,190,100
+B,B_sal_r040.png,sal,0.4,607,204,40
+C,C_gaussiano_r060.png,gaussiano,120.0,688,397,60
+D,D_pimenta_r020.png,pimenta,0.35,139,447,20
+E,E_gaussiano_r100.png,gaussiano,60.0,520,119,100
+F,F_sal_pimenta_r020.png,sal_pimenta,0.6,563,110,20
+G,G_sal_pimenta_r100.png,sal_pimenta,0.35,672,495,100
