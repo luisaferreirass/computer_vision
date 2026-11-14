@@ -1,67 +1,67 @@
-# Visão Computacional
+# Computer Vision
 
-Atividades práticas da disciplina de **Visão Computacional** (UFRN), implementadas em Python com OpenCV, NumPy e Matplotlib. O repositório cobre desde a geração e manipulação básica de imagens até filtragem de ruído, detecção de bordas e detecção de círculos com a Transformada de Hough (incluindo uma implementação própria).
+Hands-on assignments from the **Computer Vision** course (UFRN), implemented in Python with OpenCV, NumPy and Matplotlib. The repository covers everything from basic image generation and manipulation to noise filtering, edge detection and circle detection with the Hough Transform (including a custom implementation).
 
-## Estrutura
+## Structure
 
 ```
 computer_vision/
-├── tarefa1/                 # Geração e exibição de imagens, webcam + Canny
-├── tarefa2/                 # Operadores pontuais e transformações geométricas
-├── tarefa3/                 # Detecção de bordas e rotação de tabuleiro
-├── tarefa4/                 # Atenuação de ruído (enunciado: "Tarefa 5")
-├── tarefa6/                 # Contagem de discos coloridos com Hough
-└── remocao_ruido_circulo/   # Estimativa de centro e raio de círculos com ruído
+├── tarefa1/                 # Image generation and display, webcam + Canny
+├── tarefa2/                 # Point operators and geometric transformations
+├── tarefa3/                 # Edge detection and chessboard rotation
+├── tarefa4/                 # Noise reduction (assignment: "Task 5")
+├── tarefa6/                 # Counting colored discs with Hough
+└── remocao_ruido_circulo/   # Center and radius estimation of noisy circles
 ```
 
-Cada pasta traz os scripts, as imagens de teste (`imgs/`) e, quando disponível, o enunciado em `docs/`.
+Each folder contains the scripts, the test images (`imgs/`) and, when available, the assignment statement in `docs/`.
 
-## Tarefas
+## Tasks
 
-### Tarefa 1 — Fundamentos
-- **1A:** gera e exibe em grade 6 imagens 280x200 (cinza, branca, listras verticais/horizontais, xadrez e ruído aleatório).
-- **1B:** concatena lado a lado vários patches de imagem.
-- **1C:** captura da webcam com o filtro de Canny aplicado, recebendo os dois limiares por linha de comando.
+### Task 1 — Fundamentals
+- **1A:** generates and displays 6 images of 280x200 in a grid (gray, white, vertical/horizontal stripes, checkerboard and random noise).
+- **1B:** concatenates several image patches side by side.
+- **1C:** webcam capture with the Canny filter applied, taking both thresholds as command-line arguments.
 
-### Tarefa 2 — Operadores pontuais e geometria
-- **2A:** limiarização implementada percorrendo pixel a pixel (sem função pronta nem operação matricial).
-- **2B:** transformações logarítmica e logarítmica inversa para realce de contraste.
-- **2C:** equalização de histograma.
-- **2D:** reconstrução de uma imagem a partir de pedaços redimensionados e rotacionados (`resize`, `rotate`, `warpAffine`).
-- **2E:** correção de perspectiva para extrair a capa de um livro (`getPerspectiveTransform`, `warpPerspective`).
+### Task 2 — Point operators and geometry
+- **2A:** thresholding implemented pixel by pixel (no built-in function or matrix operation).
+- **2B:** logarithmic and inverse logarithmic transformations for contrast enhancement.
+- **2C:** histogram equalization.
+- **2D:** reconstruction of an image from resized and rotated pieces (`resize`, `rotate`, `warpAffine`).
+- **2E:** perspective correction to extract a book cover (`getPerspectiveTransform`, `warpPerspective`).
 
-### Tarefa 3 — Bordas e gradiente
-- **3A:** Laplaciano, Sobel em x e y, magnitude do gradiente limiarizada e Canny com histerese.
-- **3B:** estima o ângulo de rotação de um tabuleiro de xadrez em [0, π/2) a partir da direção do gradiente (Sobel + `arctan2`).
+### Task 3 — Edges and gradient
+- **3A:** Laplacian, Sobel in x and y, thresholded gradient magnitude and Canny with hysteresis.
+- **3B:** estimates the rotation angle of a chessboard in [0, π/2) from the gradient direction (Sobel + `arctan2`).
 
-### Tarefa 4 / 5 — Atenuação de ruído
-- `gerarRuido.py` gera 6 versões ruidosas de uma imagem (sal e pimenta, gaussiano, sal, pimenta, em diferentes intensidades).
-- `atenuarRuido.py` aplica o melhor filtro encontrado para cada tipo de ruído e exibe o PSNR (`cv2.PSNR`) em relação à imagem original.
+### Task 4 / 5 — Noise reduction
+- `gerarRuido.py` generates 6 noisy versions of an image (salt and pepper, Gaussian, salt, pepper, at different intensities).
+- `atenuarRuido.py` applies the best filter found for each type of noise and displays the PSNR (`cv2.PSNR`) relative to the original image.
 
-### Tarefa 6 — Contagem de discos coloridos
-Conta os discos vermelhos, amarelos, verdes e azuis em 8 imagens e compara com o gabarito.
-- Segmentação por cor no espaço **HSV** (uma máscara por cor).
-- Imagens 1–5: `cv2.HoughCircles` + agrupamento de círculos interno/externo do mesmo disco + validação do anel na máscara para eliminar falsos positivos.
-- Imagens 6–8 (muitas sobreposições): **Transformada de Hough implementada do zero**, explorando o fato de cada disco ter um círculo interno e outro externo com razão de raios constante (≈ 0,55). Cada ponto de borda vota no centro ao longo da direção do gradiente, seguido de supressão de não-máximos.
-- Saída: contagem por cor no terminal/título e imagem com os círculos desenhados, salva em `resultados/`.
+### Task 6 — Counting colored discs
+Counts the red, yellow, green and blue discs in 8 images and compares the result with the answer key.
+- Color segmentation in the **HSV** color space (one mask per color).
+- Images 1–5: `cv2.HoughCircles` + grouping of the inner/outer circles of the same disc + ring validation on the mask to eliminate false positives.
+- Images 6–8 (heavy overlap): **Hough Transform implemented from scratch**, exploiting the fact that each disc has an inner and an outer circle with a constant radius ratio (≈ 0.55). Each edge point votes for the center along the gradient direction, followed by non-maximum suppression.
+- Output: count per color in the terminal/title and an image with the detected circles drawn, saved in `resultados/`.
 
-### Remoção de ruído e detecção de círculo
-Imagens sintéticas de um círculo com diferentes ruídos (sem ruído, sal, pimenta, sal e pimenta, gaussiano) e `ground_truth.csv` com os valores reais. Os scripts filtram a imagem (gaussiano/mediana), estimam centro e raio do círculo e desenham o contorno encontrado.
+### Noise removal and circle detection
+Synthetic images of a circle with different kinds of noise (no noise, salt, pepper, salt and pepper, Gaussian) and `ground_truth.csv` with the true values. The scripts filter the image (Gaussian/median), estimate the circle's center and radius and draw the detected contour.
 
-## Como executar
+## How to run
 
-Requisitos: Python 3 e as bibliotecas abaixo.
+Requirements: Python 3 and the libraries below.
 
 ```bash
 pip install opencv-python numpy matplotlib
 ```
 
-Os scripts são executados de dentro da pasta de cada tarefa, por exemplo:
+The scripts are run from inside each task's folder, for example:
 
 ```bash
-cd tarefa1 && python 1C.py 100 200                 # limiares do Canny
-cd tarefa4 && python atenuarRuido.py cristo.jpg 3  # imagem de referência e índice do ruído (0–5)
-cd tarefa6 && python main.py imgs/7.jpg            # imagem a ser analisada
+cd tarefa1 && python 1C.py 100 200                 # Canny thresholds
+cd tarefa4 && python atenuarRuido.py cristo.jpg 3  # reference image and noise index (0–5)
+cd tarefa6 && python main.py imgs/7.jpg            # image to analyze
 cd remocao_ruido_circulo && python ruido_gaussiano.py C_gaussiano_r060.png <cx> <cy> <r>
 ```
 
